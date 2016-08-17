@@ -1,0 +1,30 @@
+---
+title: "Github Emojis"
+author: "Hiroaki Yutani"
+date: "`r Sys.Date()`"
+output:
+  html_document:
+    self_contained: false
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r library}
+library(httr)
+```
+
+```{r api, cache=TRUE}
+res <- GET("https://api.github.com/emojis")
+```
+
+```{r result}
+emoji_list <- content(res)
+str(emoji_list, list.len = 5)
+length(emoji_list)
+```
+
+```{r results='asis'}
+cat(sprintf("![%s](%s)", names(emoji_list), unlist(emoji_list)), sep="\n")
+```
